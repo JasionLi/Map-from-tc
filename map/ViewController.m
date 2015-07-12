@@ -27,14 +27,15 @@
     [self.view addSubview:mv];
     self.mapView = mv;
     
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(33, 33, 33, 33)];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(33, 33, 133, 33)];
     backBtn.backgroundColor = [UIColor blueColor];
-    backBtn.titleLabel.text = @"back";
+    [backBtn setTitle:@"back" forState:UIControlStateNormal];
     [self.view addSubview:backBtn];
-    [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     
     CLLocationManager *manager = [[CLLocationManager alloc] init];
     self.myManager = manager    ;
+    [manager requestWhenInUseAuthorization];
     
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.delegate = self;
@@ -45,14 +46,31 @@
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    NSLog(@"%s" , __func__);
-    userLocation.title = @"1";
-    userLocation.subtitle = @"2";
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:self.mapView.userLocation.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error) {
+            NSLog(@"%@" , error);
+        }
+        for (CLPlacemark *pm in placemarks) {
+            userLocation.title = pm.name;
+            userLocation.subtitle = pm.locality;
+        }
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        MKCoordinateSpan span = MKCoordinateSpanMake(0.011315, 0.009022);
+        MKCoordinateRegion region = MKCoordinateRegionMake(userLocation.coordinate, span);
+        
+        [mapView setRegion:region animated:YES];
+    });
+
 }
 
--(void) back
+-(void) back:(UIButton *)btn
 {
+//    CLLocation *loc = [[CLLocation alloc] initWithLatitude:33 longitude:33];
     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
+    NSLog(@"%lf" , btn.titleLabel.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning {

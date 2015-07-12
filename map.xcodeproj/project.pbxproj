@@ -29,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C20A55871B528143006601A3 /* readme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = readme.m; sourceTree = "<group>"; };
 		C2469D061B522C1000AF978D /* map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = map.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2469D0A1B522C1000AF978D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2469D0B1B522C1000AF978D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 		C2469CFD1B522C1000AF978D = {
 			isa = PBXGroup;
 			children = (
+				C20A55871B528143006601A3 /* readme.m */,
 				C2469D311B523C4800AF978D /* MapKit.framework */,
 				C2469D2F1B522FBE00AF978D /* CoreLocation.framework */,
 				C2469D081B522C1000AF978D /* map */,
@@ -426,6 +428,7 @@
 				C2469D2B1B522C1000AF978D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C2469D2C1B522C1000AF978D /* Build configuration list for PBXNativeTarget "mapTests" */ = {
 			isa = XCConfigurationList;
@@ -434,6 +437,7 @@
 				C2469D2E1B522C1000AF978D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
